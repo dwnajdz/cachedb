@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 
-int failedError(std::string message) {
+int failedToError(std::string message) {
     std::cerr << "Failed to " << message << std::endl;
     return 1;
 }
@@ -14,30 +14,30 @@ int connectToServer(std::string serverIP, int port, int buffer_size, char *messa
 
     int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (clientSocket == -1) {
-        return failedError("create socket");
+        return failedToError("create socket");
     }
 
     struct sockaddr_in serverAddress;
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(port);
     if (inet_pton(AF_INET, serverIP.c_str(), &(serverAddress.sin_addr)) <= 0) {
-        return failedError("connect, invalid address/address not supported address=()" + serverIP);
+        return failedToError("connect, invalid address/address not supported address=" + serverIP);
     }
 
     if (connect(clientSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
-        return failedError("connect to the server");
+        return failedToError("connect to the server");
     }
 
     int messageStatus = send(clientSocket, message, strlen(message), 0);
     if (messageStatus < 0) {
-        return failedError("send data to the server");
+        return failedToError("send data to the server");
     }
 
     char buffer[buffer_size];
     memset(buffer, 0, buffer_size);
     int receiveStatus = recv(clientSocket, buffer, sizeof(buffer)-1, 0);
     if (receiveStatus < 0) {
-        return failedError("receive data from server");
+        return failedToError("receive data from server");
     }
 
     std::cout << "Server response: \n" << buffer << std::endl;
@@ -50,8 +50,11 @@ int main() {
     int port = 3333;
 
     while (true) {
-        char *message;
-        std::cin >> message;
+        std::string line;
+        std::getline(std::cin, line);
+
+        char* message = line.data();
+
         connectToServer(serverIP, port, 4096, message);
     }
     // char *message = "STORE key value";

@@ -6,7 +6,7 @@
 // port address of server
 #define PORT 3333
 // buffer size of message
-#define BUFFER_SIZE 10000
+#define BUFFER_SIZE 2000
 // number of maximum connections query if server is busy
 #define BACKLOG 10
 
@@ -15,8 +15,7 @@ int failedError(std::string message) {
     return 1;
 }
 
-int main(int argc, char const* argv[])
-{
+int hostServer(int port, int buffer_size, int backlog) {
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1) {
         return failedError("create socket");
@@ -24,7 +23,7 @@ int main(int argc, char const* argv[])
 
     struct sockaddr_in serverAddress;
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(PORT);
+    serverAddress.sin_port = htons(port);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
 
     int bindResult = bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress));
@@ -32,12 +31,13 @@ int main(int argc, char const* argv[])
         return failedError("bind socket");
     }
 
-    int listenResult = listen(serverSocket, BACKLOG);
+    int listenResult = listen(serverSocket, backlog);
     if (listenResult == -1) {
         close(serverSocket);
         return failedError("listen for connections");
     }
 
+    std::cout << "server started successfuly\n";
     while (true) {
         struct sockaddr_in clientAddress;
         socklen_t clientAddressSize = sizeof(clientAddress);
@@ -47,7 +47,8 @@ int main(int argc, char const* argv[])
             continue;
         }
 
-        char buffer[BUFFER_SIZE];
+        char buffer[buffer_size];
+        std::cout << sizeof(buffer) << std::endl;
         int bytesRead = recv(clientSocket, buffer, sizeof(buffer), 0);
         if (bytesRead == -1) {
             close(clientSocket);
@@ -64,7 +65,13 @@ int main(int argc, char const* argv[])
             failedError("send data to client");
             continue;
         }
-
+        
+        buffer[0] = '\0';
         close(clientSocket);
     }
+}
+
+int main(int argc, char const* argv[])
+{
+    hostServer(PORT, BUFFER_SIZE, BACKLOG);
 }
