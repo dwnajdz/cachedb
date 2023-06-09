@@ -1,12 +1,13 @@
 #include <iostream>  // For input/output operations
+#include <cstring>
 #include <sys/socket.h>  // For socket related functions
 #include <netinet/in.h>  // For address structures
 #include <unistd.h>  // For close function
 
 // port address of server
-#define PORT 3333
+#define PORT 3000
 // buffer size of message
-#define BUFFER_SIZE 2000
+#define BUFFER_SIZE 1024
 // number of maximum connections query if server is busy
 #define BACKLOG 10
 
@@ -48,7 +49,8 @@ int hostServer(int port, int buffer_size, int backlog) {
         }
 
         char buffer[buffer_size];
-        std::cout << sizeof(buffer) << std::endl;
+        memset(buffer, 0, buffer_size);
+
         int bytesRead = recv(clientSocket, buffer, sizeof(buffer), 0);
         if (bytesRead == -1) {
             close(clientSocket);
@@ -66,7 +68,6 @@ int hostServer(int port, int buffer_size, int backlog) {
             continue;
         }
         
-        buffer[0] = '\0';
         close(clientSocket);
     }
 }
