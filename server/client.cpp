@@ -119,7 +119,4 @@ int main() {
         //std::cout << "response: " << responseFromServer << std::endl;
     }
     close(my_socket);
-
-    // char *message = "STORE key value";
-    // connectToServer(serverIP, port, 4096, message);
 }
