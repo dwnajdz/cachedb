@@ -160,7 +160,7 @@ if test -z "$skip_os_pkgs" ; then
     ubuntu18.04|ubuntu20.04|ubuntu21.04|ubuntu22.04) build_ubuntu_18 ;;
     centos8|rocky8.?) build_centos_8 ;;
     rocky9.?) build_rocky_9 ;;
-    fedora3[456]) build_fedora_34 ;;
+    fedora3[4568]) build_fedora_34 ;;
     arch*|manjaro*) build_arch ;;
     *) die "No build recipe for detected operating system '$DETECTED'" ;;
   esac
