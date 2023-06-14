@@ -1,3 +1,0 @@
-/home/admin/Documents/CacheLib/server/cache/build/CMakeFiles/cachedb.dir
-/home/admin/Documents/CacheLib/server/cache/build/CMakeFiles/edit_cache.dir
-/home/admin/Documents/CacheLib/server/cache/build/CMakeFiles/rebuild_cache.dir
