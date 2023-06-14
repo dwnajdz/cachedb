@@ -18,7 +18,7 @@ project (cachelib-cmake-test-project VERSION 0.1)
 
 find_package(cachelib CONFIG REQUIRED)
 
-set(cachelib_DIR "../.." CACHE PATH "cachelib/cmake")
+# set(cachelib_DIR "../.." CACHE PATH "cachelib/cmake")
 
 add_executable(simple-cache-example main.cpp)
 

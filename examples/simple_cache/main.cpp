@@ -68,13 +68,14 @@ int main(int argc, char** argv) {
   // Use cache
   {
     auto res = put("key", "value");
-    std::ignore = res;
-    assert(res);
+    // std::ignore = res;
+    // assert(res);
 
     auto item = get("key");
     folly::StringPiece sp{reinterpret_cast<const char*>(item->getMemory()),
                           item->getSize()};
-    std::ignore = sp;
+    // std::ignore = sp;
+    std::cout << "ITEM: " << sp << '\n';
     assert(sp == "value");
   }
 
