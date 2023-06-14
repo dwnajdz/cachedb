@@ -19,6 +19,7 @@ build-wangle/
 build-zstd/
 opt/
 examples/
+server/cache/build
 
 # Required source-code dependencies, fetched by ./contrib/ scripts.
 cachelib/external/fmt/
