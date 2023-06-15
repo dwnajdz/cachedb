@@ -1,7 +1,3 @@
-<p align="center">
-  <img width="500" height="140" alt="CacheLib" src="website/static/img/CacheLib-Logo-Large-transp.png">
-</p>
-
 # cachedb
 CacheDB is fast scalable in-memory database using gRPC protocol.
 
