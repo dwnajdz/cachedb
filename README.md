@@ -13,7 +13,7 @@ The build script has been tested to work on CentOS 8,
 Ubuntu 18.04, and Debian 10.
 
 ```sh
-git clone https://github.com/facebook/CacheLib
+git clone https://github.com/dwnajdz/cachedb
 cd CacheLib
 ./contrib/build.sh -d -j -v
 
